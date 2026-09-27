@@ -8,4 +8,5 @@ public interface Repository<T,TId> {
     T getById(UUID id);
     List<T> getByName(String name);
     Boolean delete(TId id);
+    List<T> getAll();
 }

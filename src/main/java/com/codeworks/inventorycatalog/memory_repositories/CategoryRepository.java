@@ -1,16 +1,20 @@
 package com.codeworks.inventorycatalog.memory_repositories;
 
 import com.codeworks.inventorycatalog.models.Category;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class CatalogRepository implements Repository<Category,Integer> {
+@Service
+@Scope("singleton")
+public class CategoryRepository implements Repository<Category,Integer> {
     private List<Category> categories;
 
-    public CatalogRepository() {
+    public CategoryRepository() {
         this.categories = new ArrayList<>();
         categories.add(Category.builder()
                         .id(1)
@@ -62,5 +66,10 @@ public class CatalogRepository implements Repository<Category,Integer> {
             return true;
         }else
             throw  new RuntimeException("Could not find category");
+    }
+
+    @Override
+    public List<Category> getAll() {
+        return categories;
     }
 }

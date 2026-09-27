@@ -2,10 +2,14 @@ package com.codeworks.inventorycatalog.memory_repositories;
 
 import com.codeworks.inventorycatalog.models.Category;
 import com.codeworks.inventorycatalog.models.Product;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Service
+@Scope("singleton")
 public class ProductRepository implements  Repository<Product,UUID> {
     private List<Product> products;
     public ProductRepository() {
@@ -101,5 +105,10 @@ public class ProductRepository implements  Repository<Product,UUID> {
             return true;
         }else
             throw  new RuntimeException("Could not find product to delete");
+    }
+
+    @Override
+    public List<Product> getAll() {
+        return products;
     }
 }
