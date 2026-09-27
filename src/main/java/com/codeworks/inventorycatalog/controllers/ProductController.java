@@ -38,7 +38,7 @@ public class ProductController {
        if(pr.isEmpty())
            return  ResponseEntity.notFound().build();
        else
-           return  ResponseEntity.of(pr);
+           return  ResponseEntity.ok(pr.get());
     }
     @GetMapping("/byname/{name}")
     public ResponseEntity< List<ProductReponse>> getById(@PathVariable String name)
