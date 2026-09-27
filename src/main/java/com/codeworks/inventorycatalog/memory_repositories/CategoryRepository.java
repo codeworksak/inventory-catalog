@@ -47,14 +47,14 @@ public class CategoryRepository implements Repository<Category,Integer> {
     }
 
     @Override
-    public Category getById(UUID id) {
+    public Category getById(Integer id) {
         Optional<Category> cat= categories.stream().filter(c-> c.getId().equals(id)).findAny();
-        return  cat.orElseThrow();
+        return  cat.orElse(null);
     }
 
     @Override
     public List<Category> getByName(String name) {
-        return  categories;
+        return  categories.stream().filter(c->c.getName().toLowerCase().startsWith(name.toLowerCase())).toList();
     }
 
     @Override
