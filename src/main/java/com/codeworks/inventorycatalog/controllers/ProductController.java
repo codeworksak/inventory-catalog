@@ -16,7 +16,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/catalog")
 public class ProductController {
     @Autowired
     private CategoryRepository categoryRepository;
@@ -30,11 +30,12 @@ public class ProductController {
         return ResponseEntity.ok(prResp);
     }
 
-    @GetMapping("/byid/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ProductReponse> getById(@PathVariable UUID id)
     {
         List<ProductReponse> prResp= getProdResponse();
-       Optional< ProductReponse> pr = prResp.stream().filter(p-> p.Id().equals(id)).findAny();
+       Optional< ProductReponse> pr = prResp.stream().filter(p-> id.equals(p.Id())).findAny();
+        System.out.println(pr.isPresent());
        if(pr.isEmpty())
            return  ResponseEntity.notFound().build();
        else

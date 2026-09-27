@@ -74,13 +74,11 @@ public class ProductRepository implements  Repository<Product,UUID> {
 
     @Override
     public Product add(Product item) {
-        Optional<Product> p = products.stream().filter(pr-> pr.getId().equals(item.getId())).findAny();
-        if(p.isEmpty())
-        {
+        //Optional<Product> p = products.stream().filter(pr-> pr.getId().equals(item.getId())).findAny();
+
+            item.setId(UUID.randomUUID());
             products.add(item);
             return  item;
-        }else
-            throw  new RuntimeException("Product already present");
     }
 
     @Override
