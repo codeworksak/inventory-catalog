@@ -55,6 +55,27 @@ pipeline{
                                }
                        }
                 }
+                stage("Smoke test the container") {
+                     steps {
+                           echo "run docker catalog api image"
+                           sh docker rm -f smoke-test-container 2>/dev/null || true
+                           sh docker run -d -p 8081:8081 --name smoke-test-container ${DOCKER_IMAGE}:${IMAGE_TAG}
+                            echo "waiting for the container to start.."
+                           sh '''
+                                sleep 5000
+
+                                URL ="http://localhost:8081/catalog/all"
+
+                                status_code=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+                                if [ "$status_code" -eq 200]; then
+                                   echo "Container call to catalog successful"
+                                else
+                                    echo "Container call to catalog not successful"
+                                    exit 1
+                                fi
+                           '''
+                     }
+                }
                  stage("Push Docker Image") {
                        steps {
                                 echo "Push Docker Image"
