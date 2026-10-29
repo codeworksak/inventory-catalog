@@ -58,8 +58,8 @@ pipeline{
                 stage("Smoke test the container") {
                      steps {
                            echo "run docker catalog api image"
-                           sh docker rm -f smoke-test-container 2>/dev/null || true
-                           sh docker run -d -p 8081:8081 --name smoke-test-container ${DOCKER_IMAGE}:${IMAGE_TAG}
+                           sh 'docker rm -f smoke-test-container 2>/dev/null || true'
+                           sh 'docker run -d -p 8081:8081 --name smoke-test-container ${DOCKER_IMAGE}:${IMAGE_TAG}'
                             echo "waiting for the container to start.."
                            sh '''
                                 sleep 5000
