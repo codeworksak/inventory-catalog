@@ -1,9 +1,9 @@
 pipeline{
          agent any
-         tools {
-             jdk java
-             maven Maven3.9
-         }
+//          tools {
+//              jdk java
+//              maven Maven3.9
+//          }
          stages {
                  stage("Checkout from GIT") {
                       steps {
