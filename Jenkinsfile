@@ -48,9 +48,9 @@ pipeline{
                        steps {
                                 echo "Build Docker Image"
                                 echo "${DOCKER_IMAGE}:${IMAGE_TAG}"
-                                  sh '''
-                                    # archiveArtifacts artifacts: '**/target/*.jar',fingerprint: true
-                                  '''
+                               script {
+                                  appImage= docker.build("${DOCKER_IMAGE}:${IMAGE_TAG}")
+                               }
                        }
                 }
          }
