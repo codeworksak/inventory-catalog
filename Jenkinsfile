@@ -4,6 +4,11 @@ pipeline{
              jdk 'jdk25'
              maven 'Maven3_9'
          }
+         environment {
+             APP_NAME="catalog-api"
+             DOCKER_IMAGE= "codeworksak/${APP_NAME}"
+             IMAGE_TAG="${BUILD_NUMBER}"
+         }
          stages {
                  stage("Checkout from GIT") {
                       steps {
@@ -31,22 +36,30 @@ pipeline{
                                   '''
                        }
                 }
-                 stage("Archive Artifacts") {
+                stage("Archive Artifacts") {
                        steps {
                                 echo "Creating artifact"
                                   sh '''
-                                     archiveArtifacts artifacts: '**/target/*.jar',fingerprint: true
+                                    # archiveArtifacts artifacts: '**/target/*.jar',fingerprint: true
                                   '''
                        }
                 }
-
+                stage("Build Docker Image") {
+                       steps {
+                                echo "Build Docker Image"
+                                echo "${DOCKER_IMAGE}:${IMAGE_TAG}"
+                                  sh '''
+                                    # archiveArtifacts artifacts: '**/target/*.jar',fingerprint: true
+                                  '''
+                       }
+                }
          }
          post {
               success {
                      echo "Pipeline completed successfully"
               }
               failure {
-                                 echo "Pipeline failed"
+                     echo "Pipeline failed"
               }
          }
 }
