@@ -67,7 +67,7 @@ pipeline{
                                 URL="http://localhost:8081/catalog/all"
 
                                 status_code=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
-                                if [ "$status_code" -eq 200]; then
+                                if [ "$status_code" -eq 200 ]; then
                                    echo "Container call to catalog successful"
                                 else
                                     echo "Container call to catalog not successful"
