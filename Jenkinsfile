@@ -1,9 +1,9 @@
 pipeline{
          agent any
-//          tools {
-//              jdk java
-//              maven Maven3.9
-//          }
+         tools {
+             jdk java
+             maven Maven3_9
+         }
          stages {
                  stage("Checkout from GIT") {
                       steps {
@@ -15,8 +15,11 @@ pipeline{
                  }
                  stage("Initialize verify tools") {
                        steps {
+                             echo "verify tools"
+                             echo "Java home ${env.JAVA_HOME}"
+
                                   sh '''
-                                  echo "verify tools"
+                                        mvn --version
                                   '''
                        }
                 }
