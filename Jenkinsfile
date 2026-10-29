@@ -6,7 +6,8 @@ pipeline{
          }
          environment {
              APP_NAME="catalog-api"
-             DOCKER_IMAGE= "codeworksak/${APP_NAME}"
+            // DOCKER_IMAGE= "codeworksak/${APP_NAME}"
+            DOCKER_IMAGE= "codeworksak/inventory-catalog"
              IMAGE_TAG="${BUILD_NUMBER}"
              DOCKER_CRED_ID="docker-cred"
          }
