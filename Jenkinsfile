@@ -62,7 +62,7 @@ pipeline{
                            sh 'docker run -d -p 8081:8081 --name smoke-test-container ${DOCKER_IMAGE}:${IMAGE_TAG}'
                             echo "waiting for the container to start.."
                            sh '''
-                                sleep 5000
+                                sleep 5
 
                                 URL ="http://localhost:8081/catalog/all"
 
