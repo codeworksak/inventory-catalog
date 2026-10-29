@@ -8,6 +8,7 @@ pipeline{
              APP_NAME="catalog-api"
              DOCKER_IMAGE= "codeworksak/${APP_NAME}"
              IMAGE_TAG="${BUILD_NUMBER}"
+             DOCKER_CRED_ID="docker-cred"
          }
          stages {
                  stage("Checkout from GIT") {
@@ -50,6 +51,18 @@ pipeline{
                                 echo "${DOCKER_IMAGE}:${IMAGE_TAG}"
                                script {
                                   appImage= docker.build("${DOCKER_IMAGE}:${IMAGE_TAG}")
+                               }
+                       }
+                }
+                 stage("Push Docker Image") {
+                       steps {
+                                echo "Push Docker Image"
+                                echo "${DOCKER_IMAGE}:${IMAGE_TAG}"
+                               script {
+                                  docker.withRegistry('',DOCKER_CRED_ID) {
+                                      appImage.push()
+                                      //appImage.push("latest")
+                                  }
                                }
                        }
                 }
