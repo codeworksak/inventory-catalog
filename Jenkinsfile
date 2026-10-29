@@ -64,7 +64,7 @@ pipeline{
                            sh '''
                                 sleep 5
 
-                                URL ="http://localhost:8081/catalog/all"
+                                URL="http://localhost:8081/catalog/all"
 
                                 status_code=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
                                 if [ "$status_code" -eq 200]; then
